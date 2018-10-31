@@ -11,7 +11,7 @@
       ((and cur-line (not (equal cur-line (string seperator-line))))
        (format nil "~A~%~A"
                cur-line 
-               (value-or
+               (nih:value-or
                  (read-line-until stream seperator-line)
                  "")))
 

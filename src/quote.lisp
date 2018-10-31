@@ -12,30 +12,9 @@
   (mapcar
     (lambda (quote)
       (list
-        (get-quote-date quote)
-        (remove-quote-date quote)))
+        (getf (nih:get-colon-values quote) :date)
+        (nih:remove-colon-values quote)))
     (read-line-chunked (open path) "%")))
-
-
-
-;; QUOTE_STRING --> DATE_IN_STRING
-(defun get-quote-date (quote)
-  "Get the date of a set quote."
-
-  (let ((date (get-colon-value quote "Date")))
-    (if date
-      date
-      nil)))
-
-
-
-;; QUOTE_STRING --> QUOTE_STRING_WITHOUT_DATE
-(defun remove-quote-date (quote)
-  "Remove the date from a set quote."
-
-  (if (get-quote-date quote)
-    (remove-colon-value quote "Date")
-    quote))
 
 
 
@@ -48,9 +27,9 @@
   `universal-time`), it'll return a random quote."
 
   (let* ((quotes (get-quotes path))
-        (date (ignore-errors (iso8601 universal-time)))
-        (dated-quote (ignore-errors (cadr (getf-string quotes date)))))
+        (date (ignore-errors (nih:iso-time universal-time)))
+        (dated-quote (ignore-errors (cadr (nih:getf-string quotes date)))))
 
     (if dated-quote
       dated-quote
-      (random-item quotes))))
+      (cadr (nih:random-item quotes)))))

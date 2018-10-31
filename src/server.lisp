@@ -1,10 +1,10 @@
 (in-package :qotdd)
 
 ;; [HOST] [PORT]
-(defun server (&optional
+(defun server (&key
                 (host "127.0.0.1")
                 (port 1117)
-                (qotd-path "/usr/share/games/qotdd/qotd2018"))
+                (path "/usr/share/games/qotdd/qotd2018"))
   "Start the QOTD server."
 
   (let ((socket (usocket:socket-listen host port)))
@@ -13,7 +13,7 @@
       (loop
         :do
         (let ((connection (connection-get socket)))
-          (main connection qotd-path)
+          (main connection path)
           (connection-kill connection)))
 
       (progn

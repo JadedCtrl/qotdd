@@ -1,13 +1,11 @@
 (defsystem "qotdd"
-           :version "0.1"
+           :version "0.2"
            :author "Jaidyn Ann <jadedctrl@teknik.io>"
            :license "AGPLv3"
-           :depends-on ("cl-strings" "usocket")
+           :depends-on ("nih" "usocket")
            :components ((:module "src"
                                  :components
                                  ((:file "package")
-                                  (:file "misc")
-                                  (:file "string")
                                   (:file "stream")
                                   (:file "quote")
                                   (:file "server"))))
