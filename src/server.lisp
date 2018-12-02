@@ -1,53 +1,32 @@
 (in-package :qotdd)
 
-;; [HOST] [PORT]
+(defvar *qotd-path*)
+
+;; [HOST] [PORT] [PATH] --> NIL
 (defun server (&key
-                (host "127.0.0.1")
+                (host "0.0.0.0")
                 (port 1117)
                 (path "/usr/share/games/qotdd/qotd2018"))
   "Start the QOTD server."
 
-  (let ((socket (usocket:socket-listen host port)))
-
-    (unwind-protect
-      (loop
-        :do
-        (let ((connection (connection-get socket)))
-          (main connection path)
-          (connection-kill connection)))
-
-      (progn
-        (format t "Dying...")
-        (usocket:socket-close socket)))))
+  (setq *qotd-path* path)
+  ;; (server host port connect-function disconnect-function input-handler
+  ;;         :halting halt-function)
+  ;; Since we don't take input, and only connect-then-disconnect, everything's
+  ;; blank but the connect-function.
+  (facilservil:server host port 'main 'blank 'blank :halting 'blank))
 
 
 
-;; SOCKET --> CONNECTION_ON_SOCKET
-(defun connection-get (socket)
-  "Return a Connection from a Socket; until Connection recieved,
-  wait patiently."
-
-  (usocket:socket-accept socket :element-type 'character))
-
-
-
-;; CONNECTION
-(defun connection-kill (connection)
-  "Close a connection."
-
-  (usocket:socket-close connection))
-
-
-
-(defun main (connection qotd-path)
+;; SOCKET NUMBER --> NIL
+(defun main (socket client-id)
   "Main function on a connection-- send the QOTD to them."
 
-  (connection-msg connection
-                  (get-quote qotd-path (get-universal-time))))
+  (facilservil:client-write socket
+                  (get-quote *qotd-path* (get-universal-time)) 'T)
+
+  (facilservil:client-slaughter socket))
 
 
-;; CONNECTION
-(defun connection-msg (connection message)
-  "Send a message to a connection."
-
-  (format (usocket:socket-stream connection) "~A" message))
+;; SOCKET NUMBER [STRING] --> NIL
+(defun blank (socket client-id &optional (input-string nil)))

@@ -2,7 +2,7 @@
            :version "0.2"
            :author "Jaidyn Ann <jadedctrl@teknik.io>"
            :license "AGPLv3"
-           :depends-on ("nih" "usocket")
+           :depends-on ("nih" "facilservil")
            :components ((:module "src"
                                  :components
                                  ((:file "package")
