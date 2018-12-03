@@ -14,7 +14,7 @@
   ;;         :halting halt-function)
   ;; Since we don't take input, and only connect-then-disconnect, everything's
   ;; blank but the connect-function.
-  (facilservil:server host port 'main 'blank 'blank :halting 'blank))
+  (facilservil:server host port 'main 'blank 'blank))
 
 
 
