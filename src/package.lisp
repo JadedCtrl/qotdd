@@ -1,4 +1,5 @@
 (defpackage :qotdd
+  (:use :cl)
   (:export
     :server))
 

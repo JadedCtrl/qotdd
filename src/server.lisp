@@ -19,14 +19,14 @@
 
 
 ;; SOCKET NUMBER --> NIL
-(defun main (socket client-id)
+(defun main (socket client)
   "Main function on a connection-- send the QOTD to them."
 
-  (facilservil:client-write socket
+  (facilservil:client-write client
                   (get-quote *qotd-path* (get-universal-time)) 'T)
 
-  (facilservil:client-slaughter socket))
+  (facilservil:client-slaughter client))
 
 
 ;; SOCKET NUMBER [STRING] --> NIL
-(defun blank (socket client-id &optional (input-string nil)))
+(defun blank (socket client &optional (input-string nil)))
