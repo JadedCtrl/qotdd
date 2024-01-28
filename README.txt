@@ -78,5 +78,5 @@ Example End
 BORING STUFF
 ----------------------------------------
 License is in COPYING.txt (GNU GPLv3~! <3)
-Author is Jaidyn Ann <jadedctrl@teknik.io>
-Sauce is at https://git.eunichx.us/qotdd
+Author is Jaidyn Ann <jadedctrl@posteo.at>
+Sauce is at https://hak.xwx.moe/jadedctrl/qotdd
